@@ -15,6 +15,8 @@
    firmware to be uploaded.
  */
 
+#define ALEN(X) (sizeof(X) / sizeof(X[0]))
+
 int base_qwerty[44] = {
     KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T, KEY_0,     KEY_Y, KEY_U, KEY_I, KEY_O, KEY_P,
     KEY_A, KEY_S, KEY_D, KEY_F, KEY_G, KEY_0,     KEY_H, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON,
@@ -22,28 +24,28 @@ int base_qwerty[44] = {
 
     KEYBOARD_LEFT_CTRL, KEY_TAB, KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
     KEY_ESC,
-    KEY_SPACE, PRE_FUNCTION(1), KEY_MINUS, KEY_QUOTE, KEYBOARD_LEFT_ALT };
+    KEY_SPACE, PRE_FUNCTION(1), PRE_FUNCTION(2), KEY_QUOTE, KEYBOARD_LEFT_ALT };
 
-int fn_qwerty[44] = {
+int symbols_qwerty[44] = {
     SHIFT(KEY_1), SHIFT(KEY_2), SHIFT(KEY_LEFT_BRACE), SHIFT(KEY_RIGHT_BRACE), SHIFT(KEY_BACKSLASH), KEY_0, KEY_PAGE_UP, KEY_7, KEY_8, KEY_9, SHIFT(KEY_8),
     SHIFT(KEY_3), SHIFT(KEY_4), SHIFT(KEY_9), SHIFT(KEY_0), KEY_TILDE, KEY_0, KEY_PAGE_DOWN, KEY_4, KEY_5, KEY_6, SHIFT(KEY_EQUAL),
     SHIFT(KEY_5), SHIFT(KEY_6), KEY_LEFT_BRACE, KEY_RIGHT_BRACE, SHIFT(KEY_TILDE), KEYBOARD_LEFT_ALT, SHIFT(KEY_7), KEY_1, KEY_2, KEY_3, KEY_BACKSLASH,
 
-    FUNCTION(4), SHIFT(KEY_INSERT), KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
+    FUNCTION(5), SHIFT(KEY_INSERT), KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
     KEYBOARD_LEFT_CTRL,
-    KEY_SPACE, PRE_FUNCTION(1), KEY_PERIOD, KEY_0, KEY_EQUAL };
+    KEY_SPACE, PRE_FUNCTION(1), KEY_MINUS, KEY_0, KEY_EQUAL };
 
-int extra_qwerty[44] = {
+int motion_qwerty[44] = {
     KEY_HOME, KEY_UP, KEY_END, KEY_INSERT, KEY_PAGE_UP, KEY_0, KEY_UP, KEY_F7, KEY_F8, KEY_F9, KEY_F10,
     KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_DELETE, KEY_PAGE_DOWN, KEY_0, KEY_DOWN, KEY_F4, KEY_F5, KEY_F6, KEY_F11,
 
-    0, 0, 0, 0, 0,
+    0, 0, 0, 0, FUNCTION(0),
     KEYBOARD_LEFT_ALT,
     0, KEY_F1, KEY_F2, KEY_F3, KEY_F12,
 
-    FUNCTION(3), 0, KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
+    FUNCTION(4), 0, KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
     KEYBOARD_LEFT_CTRL,
-    KEY_SPACE, PRE_FUNCTION(1), 0, 0, FUNCTION(0) };
+    KEY_SPACE, PRE_FUNCTION(1), PRE_FUNCTION(2), 0, 0 };
 
 int base_colemak[44] = {
     KEY_Q, KEY_W, KEY_F, KEY_P, KEY_G, KEY_0,     KEY_J, KEY_L, KEY_U, KEY_Y, KEY_SEMICOLON,
@@ -52,48 +54,52 @@ int base_colemak[44] = {
 
     KEYBOARD_LEFT_CTRL, KEY_TAB, KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
     KEY_ESC,
-    KEY_SPACE, PRE_FUNCTION(1), KEY_MINUS, KEY_QUOTE, KEYBOARD_LEFT_ALT };
+    KEY_SPACE, PRE_FUNCTION(1), PRE_FUNCTION(2), KEY_QUOTE, KEYBOARD_LEFT_ALT };
 
-int fn_colemak[44] = {
+int symbols_colemak[44] = {
     SHIFT(KEY_1), SHIFT(KEY_2), SHIFT(KEY_LEFT_BRACE), SHIFT(KEY_RIGHT_BRACE), SHIFT(KEY_BACKSLASH), KEY_0, KEY_PAGE_UP, KEY_7, KEY_8, KEY_9, SHIFT(KEY_8),
     SHIFT(KEY_3), SHIFT(KEY_4), SHIFT(KEY_9), SHIFT(KEY_0), KEY_TILDE, KEY_0, KEY_PAGE_DOWN, KEY_4, KEY_5, KEY_6, SHIFT(KEY_EQUAL),
     SHIFT(KEY_5), SHIFT(KEY_6), KEY_LEFT_BRACE, KEY_RIGHT_BRACE, SHIFT(KEY_TILDE), KEYBOARD_LEFT_ALT, SHIFT(KEY_7), KEY_1, KEY_2, KEY_3, KEY_BACKSLASH,
 
-    FUNCTION(5), SHIFT(KEY_INSERT), KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
+    FUNCTION(6), SHIFT(KEY_INSERT), KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
     KEYBOARD_LEFT_CTRL,
-    KEY_SPACE, PRE_FUNCTION(1), KEY_PERIOD, KEY_0, KEY_EQUAL };
+    KEY_SPACE, PRE_FUNCTION(1), KEY_MINUS, KEY_0, KEY_EQUAL };
 
-int extra_colemak[44] = {
+int motion_colemak[44] = {
     KEY_HOME, KEY_UP, KEY_END, KEY_INSERT, KEY_PAGE_UP, KEY_0, KEY_UP, KEY_F7, KEY_F8, KEY_F9, KEY_F10,
     KEY_LEFT, KEY_DOWN, KEY_RIGHT, KEY_DELETE, KEY_PAGE_DOWN, KEY_0, KEY_DOWN, KEY_F4, KEY_F5, KEY_F6, KEY_F11,
 
-    0, 0, 0, 0, 0,
+    0, 0, 0, 0, FUNCTION(0),
     KEYBOARD_LEFT_ALT,
     0, KEY_F1, KEY_F2, KEY_F3, KEY_F12,
 
-    FUNCTION(2), 0, KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
+    FUNCTION(3), 0, KEYBOARD_LEFT_GUI, KEYBOARD_LEFT_SHIFT, KEY_BACKSPACE,
     KEYBOARD_LEFT_CTRL,
-    KEY_SPACE, PRE_FUNCTION(1), 0, 0, FUNCTION(0) };
+    KEY_SPACE, PRE_FUNCTION(1), PRE_FUNCTION(2), 0, 0 };
 
-int *layers[] = {base_qwerty, fn_qwerty, extra_qwerty, base_colemak, fn_colemak, extra_colemak};
+int *layers[] = {base_qwerty, symbols_qwerty, motion_qwerty, base_colemak, symbols_colemak, motion_colemak};
 
 // stuff below is taken from layout_common.h but adapted to allow fn
 // to function from more than one layer.
 
-int fn_decay = 0;
+int momentary_key_decay[] = {0, 0};
 
-void activate_fn() {
-  fn_decay = 20;
+void activate_symbols() {
+  momentary_key_decay[0] = 20;
+};
+
+void activate_motion() {
+  momentary_key_decay[1] = 20;
 };
 
 int base_layer = 0;
 int layer_to_jump = 0;
 
-void to_extra_qwerty() {
+void to_motion_qwerty() {
   layer_to_jump = 2;
 };
 
-void to_extra_colemak() {
+void to_motion_colemak() {
   layer_to_jump = 5;
 };
 
@@ -109,17 +115,19 @@ void to_base_qwerty() {
   base_layer = 0;
 };
 
-void (*layer_functions[])(void) = {reset, activate_fn, to_base_qwerty, to_base_colemak, to_extra_qwerty, to_extra_colemak};
+void (*layer_functions[])(void) = {reset, activate_symbols, activate_motion, to_base_qwerty, to_base_colemak, to_motion_qwerty, to_motion_colemak};
 
 void per_cycle() {
-  if(fn_decay > 1) {
-    current_layer = layers[current_layer_number + 1];
-    fn_decay--;
-  } else if(fn_decay == 1) {
-    current_layer_number = layer_to_jump;
-    fn_decay--;
-  } else {
-    layer_to_jump = base_layer;
-    fn_decay = 0;
+  for (int i = 0; i < ALEN(momentary_key_decay); i++) {
+    if (momentary_key_decay[i] > 1) {
+      current_layer = layers[current_layer_number + 1 + i];
+      momentary_key_decay[i]--;
+    } else if (momentary_key_decay[i] == 1) {
+      current_layer_number = layer_to_jump;
+      momentary_key_decay[i]--;
+    } else {
+      layer_to_jump = base_layer;
+      momentary_key_decay[i] = 0;
+    }
   }
 };
